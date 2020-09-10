@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Counter from "Classes/Counter"
+import Sender from "Components/Sender/Sender"
 import Listener from "Components/Listener/Listener"
 
 interface PairProps {}
@@ -11,8 +11,6 @@ interface PairState {
 }
 
 class Pair extends React.Component<PairProps,PairState> {
-  senderValueGenerator: () => number
-
   constructor(props:PairProps) {
     super(props)
 
@@ -20,11 +18,9 @@ class Pair extends React.Component<PairProps,PairState> {
       generator: "counter",
       senderValue: -1,
     }
-
-    this.senderValueGenerator = new Counter().increment
   }
 
-  clickSender = () => this.setState({senderValue: this.senderValueGenerator()})
+  clickSenderCallback = (value:number) => this.setState({senderValue: value})
 
   render() {
     const {
@@ -35,8 +31,11 @@ class Pair extends React.Component<PairProps,PairState> {
     return (
       <div>
         <div>
-          {senderValue}
-          <button onClick={e => this.clickSender()}>Lock/Unlock</button>
+          <Sender
+            clickSenderCallback={this.clickSenderCallback}
+            generator={generator}
+            value={this.state.senderValue}
+          />
         </div>
 
         <div>

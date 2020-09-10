@@ -27,6 +27,14 @@ export default class Listener extends React.Component<Props,State> {
     }
   }
 
+  componentDidUpdate(prevProps:Props) {
+    //if the sender value changed
+    if(prevProps.senderValue !== this.props.senderValue) {
+      this.verifyValue(this.props.senderValue)
+    }
+  }
+
+
   generateList = (list:number[]):number[] => {
     //while the list is too short
     while(list.length < this.props.listSize) {
@@ -46,7 +54,7 @@ export default class Listener extends React.Component<Props,State> {
 
     if(list[index]) { //if the value is in the list
       this.setState({
-        list: this.generateList( // generate new values for the lsit
+        list: this.generateList( // generate new values for the list
           list.slice(index + 1) //slice off the beginning of the list, including the value
         ),
       })
