@@ -1,24 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'App.scss';
+
+import Pair from "Components/Pair/Pair"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h2>Rolling Code</h2>
+
+      <div>Keyless entry systems such as cars and garage doors...</div>
+
+      <section>
+        <Pair/>
+      </section>
     </div>
   );
 }
