@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Counter from "Classes/Counter"
+import "./sender.scss"
 
 interface Props {
   clickSenderCallback: (value:number) => void,
@@ -28,8 +29,8 @@ export default class Sender extends React.Component<Props,State> {
     } = this.props
 
     return (
-      <div>
-        {value}
+      <div className="sender">
+        <div className="value">{value>0 ? value : "-"}</div>
         <button onClick={e => clickSenderCallback(this.valueGenerator())}>Lock/Unlock</button>
       </div>
     )

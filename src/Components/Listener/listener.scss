@@ -1,0 +1,12 @@
+.listener {
+  .value {
+    padding: 0.25em;
+    transition: 1s;
+
+    &.valid {
+      border: 1px solid green;
+      background: lightgreen;
+      color: green
+    }
+  }
+}

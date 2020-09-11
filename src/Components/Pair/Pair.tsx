@@ -2,6 +2,7 @@ import React from 'react';
 
 import Sender from "Components/Sender/Sender"
 import Listener from "Components/Listener/Listener"
+import "./pair.scss"
 
 interface PairProps {}
 
@@ -29,7 +30,7 @@ class Pair extends React.Component<PairProps,PairState> {
     } = this.state
 
     return (
-      <div>
+      <div className="pair">
         <div>
           <Sender
             clickSenderCallback={this.clickSenderCallback}
