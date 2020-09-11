@@ -1,11 +1,12 @@
 import React from 'react';
 
-import Counter from "Classes/Counter"
+import getValueGenerator, { ValueGeneratorType } from "utils/getValueGenerator"
 import "./listener.scss"
 
 interface Props {
   generator: "counter" | "rng",
   listSize: number,
+  seed: number,
   senderValue: number,
 }
 
@@ -15,12 +16,12 @@ interface State {
 }
 
 export default class Listener extends React.Component<Props,State> {
-  valueGenerator: () => number
+  valueGenerator: ValueGeneratorType
 
   constructor(props:Props) {
     super(props)
 
-    this.valueGenerator = new Counter().increment
+    this.valueGenerator = getValueGenerator(props.generator, props.seed)
 
     this.state = {
       list: this.generateList([]),
@@ -29,15 +30,21 @@ export default class Listener extends React.Component<Props,State> {
   }
 
   componentDidUpdate(prevProps:Props) {
-    //if the sender value changed
-    if(prevProps.senderValue !== this.props.senderValue) {
+    if(prevProps.generator !== this.props.generator) {
+      this.valueGenerator = getValueGenerator(this.props.generator, this.props.seed)
+
+      this.setState({
+        list: this.generateList([]),
+        locked: true,
+      })
+    }
+    else if(prevProps.senderValue !== this.props.senderValue) { //if the sender value changed
       setTimeout(
         () => this.verifyValue(this.props.senderValue),
-        3000
+        1500
       )
     }
   }
-
 
   generateList = (list:number[]):number[] => {
     //while the list is too short
@@ -76,6 +83,8 @@ export default class Listener extends React.Component<Props,State> {
       locked,
     } = this.state
 
+    const status = locked ? "Locked" : "Unlocked"
+
     return (
       <div className="listener">
         <div>
@@ -83,7 +92,7 @@ export default class Listener extends React.Component<Props,State> {
             <div className={"value" + (value===senderValue?" valid":"")}>{value}</div>
           )}
         </div>
-        {locked ? "Locked" : "Unlocked"}
+        <div className={"status " + status}>{status}</div>
       </div>
     )
   }

@@ -9,4 +9,23 @@
       color: green
     }
   }
+
+  .status {
+    padding: 0.5em;
+    border-width: 2px;
+
+    &.Unlocked {
+      border-style: dashed;
+      border-color: green;
+      color: green;
+      background: lightgreen;
+    }
+
+    &.Locked {
+      border-style: solid;
+      border-color: gray;
+      color: gray;
+      background: #ddd;
+    }
+  }
 }

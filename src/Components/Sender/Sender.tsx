@@ -1,25 +1,32 @@
 import React from 'react';
 
-import Counter from "Classes/Counter"
+import getValueGenerator, { ValueGeneratorType } from "utils/getValueGenerator"
 import "./sender.scss"
 
 interface Props {
   clickSenderCallback: (value:number) => void,
   generator: "counter" | "rng",
+  seed: number,
   value: number,
 }
 
 interface State {}
 
 export default class Sender extends React.Component<Props,State> {
-  valueGenerator: () => number
+  valueGenerator: ValueGeneratorType
 
   constructor(props:Props) {
     super(props)
 
-    this.valueGenerator = new Counter().increment
+    this.valueGenerator = getValueGenerator(props.generator, props.seed)
 
     this.state = {}
+  }
+
+  componentDidUpdate(prevProps:Props) {
+    if(prevProps.generator !== this.props.generator) {
+      this.valueGenerator = getValueGenerator(this.props.generator, this.props.seed)
+    }
   }
 
   render() {

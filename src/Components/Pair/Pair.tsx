@@ -8,6 +8,7 @@ interface PairProps {}
 
 interface PairState {
   generator: "counter" | "rng",
+  seed: number,
   senderValue: number,
 }
 
@@ -17,7 +18,18 @@ class Pair extends React.Component<PairProps,PairState> {
 
     this.state = {
       generator: "counter",
+      seed: new Date().getTime(),
       senderValue: -1,
+    }
+  }
+
+  changeGenerator = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value
+    if(value==="rng" || value==="counter") {
+      this.setState({
+        generator: value,
+        senderValue: -1,
+      })
     }
   }
 
@@ -26,25 +38,38 @@ class Pair extends React.Component<PairProps,PairState> {
   render() {
     const {
       generator,
+      seed,
       senderValue,
     } = this.state
 
     return (
       <div className="pair">
         <div>
-          <Sender
-            clickSenderCallback={this.clickSenderCallback}
-            generator={generator}
-            value={this.state.senderValue}
-          />
+          <label>Number Generator</label>
+          <select value={generator} onChange={this.changeGenerator}>
+            <option value="counter">Simple Counter</option>
+            <option value="rng">Psuedo Random Number Generator</option>
+          </select>
         </div>
 
-        <div>
-          <Listener
-            generator={generator}
-            listSize={5}
-            senderValue={senderValue}
-          />
+        <div className="content">
+          <div>
+            <Sender
+              clickSenderCallback={this.clickSenderCallback}
+              generator={generator}
+              seed={seed}
+              value={this.state.senderValue}
+            />
+          </div>
+
+          <div>
+            <Listener
+              generator={generator}
+              listSize={5}
+              seed={seed}
+              senderValue={senderValue}
+            />
+          </div>
         </div>
       </div>
     );
