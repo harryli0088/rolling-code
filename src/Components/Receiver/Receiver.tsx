@@ -9,6 +9,7 @@ interface Props {
   generator: "counter" | "rng",
   listSize: number,
   seed: number,
+  reset: boolean,
   transmitterValue: number,
 }
 
@@ -32,7 +33,10 @@ export default class Receiver extends React.Component<Props,State> {
   }
 
   componentDidUpdate(prevProps:Props) {
-    if(prevProps.generator !== this.props.generator) {
+    if(
+      prevProps.generator !== this.props.generator
+      || prevProps.reset !== this.props.reset
+    ) {
       this.valueGenerator = getValueGenerator(this.props.generator, this.props.seed)
 
       this.setState({

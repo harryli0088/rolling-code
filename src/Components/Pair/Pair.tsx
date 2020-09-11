@@ -9,6 +9,7 @@ interface PairProps {}
 interface PairState {
   generator: "counter" | "rng",
   inRange: boolean,
+  reset: boolean, //use this field to induce resets in child components
   seed: number,
   transmitterValue: number,
 }
@@ -20,6 +21,7 @@ class Pair extends React.Component<PairProps,PairState> {
     this.state = {
       generator: "counter",
       inRange: true,
+      reset: false,
       seed: new Date().getTime(),
       transmitterValue: -1,
     }
@@ -37,10 +39,20 @@ class Pair extends React.Component<PairProps,PairState> {
 
   clickTransmitterCallback = (value:number) => this.setState({transmitterValue: value})
 
+  reset = () => {
+    this.setState({
+      inRange: true,
+      reset: !this.state.reset,
+      transmitterValue: -1,
+    })
+  }
+
+
   render() {
     const {
       generator,
       inRange,
+      reset,
       seed,
       transmitterValue,
     } = this.state
@@ -51,12 +63,16 @@ class Pair extends React.Component<PairProps,PairState> {
           <label>Number Generator</label>
           &nbsp; <select value={generator} onChange={this.changeGenerator}>
             <option value="counter">Simple Counter</option>
-            <option value="rng">Psuedo Random Number Generator</option>
+            <option value="rng">Psuedorandom Number Generator</option>
           </select>
         </div>
 
         <div>
           <label>In Range: </label> <input type="checkbox" checked={inRange} onChange={e => this.setState({inRange: !inRange})}/>
+        </div>
+
+        <div>
+          <button onClick={e => this.reset()}>Reset</button>
         </div>
 
         <div className={"devices " + (inRange?"inRange":"outOfRange")}>
@@ -65,6 +81,7 @@ class Pair extends React.Component<PairProps,PairState> {
               clickTransmitterCallback={this.clickTransmitterCallback}
               generator={generator}
               inRange={inRange}
+              reset={reset}
               seed={seed}
             />
           </div>
@@ -73,6 +90,7 @@ class Pair extends React.Component<PairProps,PairState> {
             <Receiver
               generator={generator}
               listSize={5}
+              reset={reset}
               seed={seed}
               transmitterValue={transmitterValue}
             />

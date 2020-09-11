@@ -27,7 +27,7 @@ function App() {
 
         <div>This is why car keys need to "pair" or synchronize with the car first before being usable.</div>
 
-        <div>Instead of using a simple counter, rolling code implementations can use <b>pseudorandom number generators</b> (PRNGs). These PRNGs, given a seed, will deterministically generate successive numbers; ideally, the generated sequence of numbers will be unpredictable (ie close to random) and will be completely different given a different seed.</div>
+        <div>Instead of using a simple counter, rolling code implementations can use <b>Pseudorandom Number Generators</b> (PRNGs). These PRNGs, given a seed, will deterministically generate successive numbers; ideally, the generated sequence of numbers will be unpredictable (ie close to random) and will be completely different given a different seed.</div>
       </section>
 
       <br/>

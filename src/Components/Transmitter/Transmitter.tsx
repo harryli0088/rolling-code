@@ -9,6 +9,7 @@ interface Props {
   clickTransmitterCallback: (value:number) => void,
   generator: "counter" | "rng",
   inRange: boolean,
+  reset: boolean,
   seed: number,
 }
 
@@ -34,8 +35,11 @@ export default class Transmitter extends React.Component<Props,State> {
   }
 
   componentDidUpdate(prevProps:Props) {
-    if(prevProps.generator !== this.props.generator) {
-      this.valueGenerator = getValueGenerator(this.props.generator, this.props.seed)
+    if(
+      prevProps.generator !== this.props.generator
+      || prevProps.reset !== this.props.reset
+    ) {
+      this.valueGenerator = getValueGenerator(this.props.generator, this.props.seed) //set the generator
 
       this.setState({
         nextValue: this.valueGenerator(), //calculate the next value
@@ -64,6 +68,10 @@ export default class Transmitter extends React.Component<Props,State> {
 
   render() {
     const {
+      generator,
+    } = this.props
+
+    const {
       nextValue,
       showValue,
       value,
@@ -71,7 +79,10 @@ export default class Transmitter extends React.Component<Props,State> {
 
     return (
       <div className="transmitter">
-        <div className={"value" + (showValue?" show":"")}>{value>0 ? value : "-"} <FontAwesomeIcon icon={faSatelliteDish}/></div>
+        <div className={`value ${generator}` + (showValue?" show":"")}>
+          <span>{value>0 ? value : "-"}</span>
+          <FontAwesomeIcon icon={faSatelliteDish}/>
+        </div>
         <div className="nextValue"><b>Next Value: </b>{nextValue}</div>
         <button onClick={e => this.onClick()}>Lock/Unlock</button>
       </div>

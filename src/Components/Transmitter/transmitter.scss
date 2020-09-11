@@ -3,15 +3,23 @@
   flex-direction: column;
 
   .value {
-    font-size: 5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     font-weight: bold;
-    padding: 0.25em;
-    margin-bottom: 0.25em;
-    border-radius: 0.25em;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     transform: translateY(25%);
     opacity: 0;
+    z-index: -1;
     transition: 1s;
+
+    &.counter {
+      font-size: 60px;
+    }
 
     &.show {
       transform: translateY(0);
@@ -19,7 +27,8 @@
     }
 
     .svg-inline--fa {
-      float: right;
+      padding-left: 0.25em;
+      font-size: 40px;
     }
   }
 }
