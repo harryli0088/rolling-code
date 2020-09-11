@@ -1,10 +1,10 @@
 import React from 'react';
 
 import getValueGenerator, { ValueGeneratorType } from "utils/getValueGenerator"
-import "./sender.scss"
+import "./broadcaster.scss"
 
 interface Props {
-  clickSenderCallback: (value:number) => void,
+  clickBroadcasterCallback: (value:number) => void,
   generator: "counter" | "rng",
   seed: number,
   value: number,
@@ -14,7 +14,7 @@ interface State {
   nextValue: number,
 }
 
-export default class Sender extends React.Component<Props,State> {
+export default class Broadcaster extends React.Component<Props,State> {
   valueGenerator: ValueGeneratorType
 
   constructor(props:Props) {
@@ -38,7 +38,7 @@ export default class Sender extends React.Component<Props,State> {
   }
 
   onClick = () => {
-    this.props.clickSenderCallback(this.state.nextValue) //send the next value to the parent
+    this.props.clickBroadcasterCallback(this.state.nextValue) //send the next value to the parent
 
     this.setState({
       nextValue: this.valueGenerator(), //calculate the next value
@@ -55,7 +55,7 @@ export default class Sender extends React.Component<Props,State> {
     } = this.state
 
     return (
-      <div className="sender">
+      <div className="broadcaster">
         <div className="value">{value>0 ? value : "-"}</div>
         <div className="nextValue"><b>Next Value: </b>{nextValue}</div>
         <button onClick={e => this.onClick()}>Lock/Unlock</button>

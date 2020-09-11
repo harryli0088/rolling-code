@@ -7,7 +7,7 @@ interface Props {
   generator: "counter" | "rng",
   listSize: number,
   seed: number,
-  senderValue: number,
+  broadcasterValue: number,
 }
 
 interface State {
@@ -38,9 +38,9 @@ export default class Listener extends React.Component<Props,State> {
         locked: true,
       })
     }
-    else if(prevProps.senderValue !== this.props.senderValue) { //if the sender value changed
+    else if(prevProps.broadcasterValue !== this.props.broadcasterValue) { //if the broadcaster value changed
       setTimeout(
-        () => this.verifyValue(this.props.senderValue),
+        () => this.verifyValue(this.props.broadcasterValue),
         1500
       )
     }
@@ -76,7 +76,7 @@ export default class Listener extends React.Component<Props,State> {
 
   render() {
     const {
-      senderValue,
+      broadcasterValue,
     } = this.props
 
     const {
@@ -89,7 +89,7 @@ export default class Listener extends React.Component<Props,State> {
       <div className="listener">
         <div>
           {this.state.list.map(value =>
-            <div className={"value" + (value===senderValue?" valid":"")}>{value}</div>
+            <div className={"value" + (value===broadcasterValue?" valid":"")}>{value}</div>
           )}
         </div>
         <div className={"status " + status}>{status}</div>

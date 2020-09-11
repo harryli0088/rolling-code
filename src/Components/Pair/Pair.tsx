@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Sender from "Components/Sender/Sender"
+import Broadcaster from "Components/Broadcaster/Broadcaster"
 import Listener from "Components/Listener/Listener"
 import "./pair.scss"
 
@@ -9,7 +9,7 @@ interface PairProps {}
 interface PairState {
   generator: "counter" | "rng",
   seed: number,
-  senderValue: number,
+  broadcasterValue: number,
 }
 
 class Pair extends React.Component<PairProps,PairState> {
@@ -19,7 +19,7 @@ class Pair extends React.Component<PairProps,PairState> {
     this.state = {
       generator: "counter",
       seed: new Date().getTime(),
-      senderValue: -1,
+      broadcasterValue: -1,
     }
   }
 
@@ -28,18 +28,18 @@ class Pair extends React.Component<PairProps,PairState> {
     if(value==="rng" || value==="counter") {
       this.setState({
         generator: value,
-        senderValue: -1,
+        broadcasterValue: -1,
       })
     }
   }
 
-  clickSenderCallback = (value:number) => this.setState({senderValue: value})
+  clickBroadcasterCallback = (value:number) => this.setState({broadcasterValue: value})
 
   render() {
     const {
       generator,
       seed,
-      senderValue,
+      broadcasterValue,
     } = this.state
 
     return (
@@ -54,11 +54,11 @@ class Pair extends React.Component<PairProps,PairState> {
 
         <div className="content">
           <div>
-            <Sender
-              clickSenderCallback={this.clickSenderCallback}
+            <Broadcaster
+              clickBroadcasterCallback={this.clickBroadcasterCallback}
               generator={generator}
               seed={seed}
-              value={this.state.senderValue}
+              value={this.state.broadcasterValue}
             />
           </div>
 
@@ -67,7 +67,7 @@ class Pair extends React.Component<PairProps,PairState> {
               generator={generator}
               listSize={5}
               seed={seed}
-              senderValue={senderValue}
+              broadcasterValue={broadcasterValue}
             />
           </div>
         </div>
