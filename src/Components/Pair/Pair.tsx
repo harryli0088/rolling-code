@@ -8,6 +8,7 @@ interface PairProps {}
 
 interface PairState {
   generator: "counter" | "rng",
+  inRange: boolean,
   seed: number,
   broadcasterValue: number,
 }
@@ -18,6 +19,7 @@ class Pair extends React.Component<PairProps,PairState> {
 
     this.state = {
       generator: "counter",
+      inRange: true,
       seed: new Date().getTime(),
       broadcasterValue: -1,
     }
@@ -38,6 +40,7 @@ class Pair extends React.Component<PairProps,PairState> {
   render() {
     const {
       generator,
+      inRange,
       seed,
       broadcasterValue,
     } = this.state
@@ -52,13 +55,17 @@ class Pair extends React.Component<PairProps,PairState> {
           </select>
         </div>
 
+        <div>
+          <label>In Range: </label> <input type="checkbox" checked={inRange} onChange={e => this.setState({inRange: !inRange})}/>
+        </div>
+
         <div className="content">
           <div>
             <Broadcaster
               clickBroadcasterCallback={this.clickBroadcasterCallback}
               generator={generator}
+              inRange={inRange}
               seed={seed}
-              value={this.state.broadcasterValue}
             />
           </div>
 

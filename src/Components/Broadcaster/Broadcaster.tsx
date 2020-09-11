@@ -6,12 +6,13 @@ import "./broadcaster.scss"
 interface Props {
   clickBroadcasterCallback: (value:number) => void,
   generator: "counter" | "rng",
+  inRange: boolean,
   seed: number,
-  value: number,
 }
 
 interface State {
   nextValue: number,
+  value: number,
 }
 
 export default class Broadcaster extends React.Component<Props,State> {
@@ -24,6 +25,7 @@ export default class Broadcaster extends React.Component<Props,State> {
 
     this.state = {
       nextValue: this.valueGenerator(),
+      value: -1,
     }
   }
 
@@ -33,25 +35,26 @@ export default class Broadcaster extends React.Component<Props,State> {
 
       this.setState({
         nextValue: this.valueGenerator(), //calculate the next value
+        value: -1,
       })
     }
   }
 
   onClick = () => {
-    this.props.clickBroadcasterCallback(this.state.nextValue) //send the next value to the parent
+    if(this.props.inRange) { //if the listener is in range
+      this.props.clickBroadcasterCallback(this.state.nextValue) //send the next value to the parent
+    }
 
     this.setState({
       nextValue: this.valueGenerator(), //calculate the next value
+      value: this.state.nextValue,
     })
   }
 
   render() {
     const {
-      value,
-    } = this.props
-
-    const {
       nextValue,
+      value,
     } = this.state
 
     return (

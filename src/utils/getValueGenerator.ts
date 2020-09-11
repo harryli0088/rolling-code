@@ -8,7 +8,8 @@ export default function getValueGenerator(
   seed: number,
 ):ValueGeneratorType {
   if(generator === "rng") {
-    return seedrandom(seed.toString())
+    const rng = seedrandom(seed.toString())
+    return () => 1000000000000000000*rng()
   }
 
   return new Counter().increment
