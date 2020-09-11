@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons'
 
 import getValueGenerator, { ValueGeneratorType } from "utils/getValueGenerator"
-import "./listener.scss"
+import "./receiver.scss"
 
 interface Props {
   generator: "counter" | "rng",
   listSize: number,
   seed: number,
-  broadcasterValue: number,
+  transmitterValue: number,
 }
 
 interface State {
@@ -17,7 +17,7 @@ interface State {
   locked: boolean,
 }
 
-export default class Listener extends React.Component<Props,State> {
+export default class Receiver extends React.Component<Props,State> {
   valueGenerator: ValueGeneratorType
 
   constructor(props:Props) {
@@ -40,9 +40,9 @@ export default class Listener extends React.Component<Props,State> {
         locked: true,
       })
     }
-    else if(prevProps.broadcasterValue !== this.props.broadcasterValue) { //if the broadcaster value changed
+    else if(prevProps.transmitterValue !== this.props.transmitterValue) { //if the transmitter value changed
       setTimeout(
-        () => this.verifyValue(this.props.broadcasterValue),
+        () => this.verifyValue(this.props.transmitterValue),
         1000
       )
     }
@@ -78,7 +78,7 @@ export default class Listener extends React.Component<Props,State> {
 
   render() {
     const {
-      broadcasterValue,
+      transmitterValue,
     } = this.props
 
     const {
@@ -88,14 +88,14 @@ export default class Listener extends React.Component<Props,State> {
     const status = locked ? "Locked" : "Unlocked"
 
     return (
-      <div className="listener">
+      <div className="receiver">
         <div className={"status " + status}>{status} <FontAwesomeIcon icon={locked ? faLock : faLockOpen}/></div>
         <br/>
 
         <b>Generated List of Valid Numbers</b>
         <div>
           {this.state.list.map(value =>
-            <div className={"value" + (value===broadcasterValue?" valid":"")}>{value}</div>
+            <div className={"value" + (value===transmitterValue?" valid":"")}>{value}</div>
           )}
         </div>
       </div>

@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSatelliteDish } from '@fortawesome/free-solid-svg-icons'
 
 import getValueGenerator, { ValueGeneratorType } from "utils/getValueGenerator"
-import "./broadcaster.scss"
+import "./transmitter.scss"
 
 interface Props {
-  clickBroadcasterCallback: (value:number) => void,
+  clickTransmitterCallback: (value:number) => void,
   generator: "counter" | "rng",
   inRange: boolean,
   seed: number,
@@ -18,7 +18,7 @@ interface State {
   value: number,
 }
 
-export default class Broadcaster extends React.Component<Props,State> {
+export default class Transmitter extends React.Component<Props,State> {
   valueGenerator: ValueGeneratorType
 
   constructor(props:Props) {
@@ -47,7 +47,7 @@ export default class Broadcaster extends React.Component<Props,State> {
 
   onClick = () => {
     if(this.props.inRange) { //if the listener is in range
-      this.props.clickBroadcasterCallback(this.state.nextValue) //send the next value to the parent
+      this.props.clickTransmitterCallback(this.state.nextValue) //send the next value to the parent
     }
 
     this.setState({
@@ -70,7 +70,7 @@ export default class Broadcaster extends React.Component<Props,State> {
     } = this.state
 
     return (
-      <div className="broadcaster">
+      <div className="transmitter">
         <div className={"value" + (showValue?" show":"")}>{value>0 ? value : "-"} <FontAwesomeIcon icon={faSatelliteDish}/></div>
         <div className="nextValue"><b>Next Value: </b>{nextValue}</div>
         <button onClick={e => this.onClick()}>Lock/Unlock</button>

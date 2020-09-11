@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Broadcaster from "Components/Broadcaster/Broadcaster"
-import Listener from "Components/Listener/Listener"
+import Transmitter from "Components/Transmitter/Transmitter"
+import Receiver from "Components/Receiver/Receiver"
 import "./pair.scss"
 
 interface PairProps {}
@@ -10,7 +10,7 @@ interface PairState {
   generator: "counter" | "rng",
   inRange: boolean,
   seed: number,
-  broadcasterValue: number,
+  transmitterValue: number,
 }
 
 class Pair extends React.Component<PairProps,PairState> {
@@ -21,7 +21,7 @@ class Pair extends React.Component<PairProps,PairState> {
       generator: "counter",
       inRange: true,
       seed: new Date().getTime(),
-      broadcasterValue: -1,
+      transmitterValue: -1,
     }
   }
 
@@ -30,19 +30,19 @@ class Pair extends React.Component<PairProps,PairState> {
     if(value==="rng" || value==="counter") {
       this.setState({
         generator: value,
-        broadcasterValue: -1,
+        transmitterValue: -1,
       })
     }
   }
 
-  clickBroadcasterCallback = (value:number) => this.setState({broadcasterValue: value})
+  clickTransmitterCallback = (value:number) => this.setState({transmitterValue: value})
 
   render() {
     const {
       generator,
       inRange,
       seed,
-      broadcasterValue,
+      transmitterValue,
     } = this.state
 
     return (
@@ -61,8 +61,8 @@ class Pair extends React.Component<PairProps,PairState> {
 
         <div className={"devices " + (inRange?"inRange":"outOfRange")}>
           <div>
-            <Broadcaster
-              clickBroadcasterCallback={this.clickBroadcasterCallback}
+            <Transmitter
+              clickTransmitterCallback={this.clickTransmitterCallback}
               generator={generator}
               inRange={inRange}
               seed={seed}
@@ -70,11 +70,11 @@ class Pair extends React.Component<PairProps,PairState> {
           </div>
 
           <div>
-            <Listener
+            <Receiver
               generator={generator}
               listSize={5}
               seed={seed}
-              broadcasterValue={broadcasterValue}
+              transmitterValue={transmitterValue}
             />
           </div>
         </div>
