@@ -6,11 +6,15 @@
     font-size: 5em;
     font-weight: bold;
     padding: 0.25em;
-    border: 1px solid gray;
+    margin-bottom: 0.25em;
+    border-radius: 0.25em;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transform: translateY(25%);
     opacity: 0;
     transition: 1s;
 
     &.show {
+      transform: translateY(0);
       opacity: 1;
     }
 

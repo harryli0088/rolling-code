@@ -89,12 +89,15 @@ export default class Listener extends React.Component<Props,State> {
 
     return (
       <div className="listener">
+        <div className={"status " + status}>{status} <FontAwesomeIcon icon={locked ? faLock : faLockOpen}/></div>
+        <br/>
+
+        <b>Generated List of Valid Numbers</b>
         <div>
           {this.state.list.map(value =>
             <div className={"value" + (value===broadcasterValue?" valid":"")}>{value}</div>
           )}
         </div>
-        <div className={"status " + status}>{status} <FontAwesomeIcon icon={locked ? faLock : faLockOpen}/></div>
       </div>
     )
   }
