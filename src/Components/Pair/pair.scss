@@ -1,11 +1,22 @@
 .pair {
-  .content {
+  .devices {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 
     > div {
-      width: 50%;
+      width: 25%;
       padding: 1em;
+      transition: 1s;
+    }
+
+    &.outOfRange {
+      > div:first-child {
+        transform: translateX(-75%);
+      }
+      > div:last-child {
+        transform: translateX(75%);
+      }
     }
   }
 }

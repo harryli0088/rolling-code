@@ -59,7 +59,7 @@ class Pair extends React.Component<PairProps,PairState> {
           <label>In Range: </label> <input type="checkbox" checked={inRange} onChange={e => this.setState({inRange: !inRange})}/>
         </div>
 
-        <div className="content">
+        <div className={"devices " + (inRange?"inRange":"outOfRange")}>
           <div>
             <Broadcaster
               clickBroadcasterCallback={this.clickBroadcasterCallback}
