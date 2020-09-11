@@ -31,4 +31,14 @@
       font-size: 40px;
     }
   }
+
+  .nextValue {
+    opacity: 0;
+    transition: 0s;
+
+    &.show {
+      opacity: 1;
+      transition: 1s;
+    }
+  }
 }

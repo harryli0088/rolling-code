@@ -83,7 +83,11 @@ export default class Transmitter extends React.Component<Props,State> {
           <span>{value>0 ? value : "-"}</span>
           <FontAwesomeIcon icon={faSatelliteDish}/>
         </div>
-        <div className="nextValue"><b>Next Value: </b>{nextValue}</div>
+        
+        <div className={"nextValue" + (showValue?"":" show")}>
+          <b>Next Value: </b>{nextValue}
+        </div>
+
         <button onClick={e => this.onClick()}>Lock/Unlock</button>
       </div>
     )
