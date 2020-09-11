@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSatelliteDish } from '@fortawesome/free-solid-svg-icons'
+import { faSatelliteDish, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons'
 
 import getValueGenerator, { ValueGeneratorType } from "utils/getValueGenerator"
 import "./transmitter.scss"
@@ -20,11 +20,15 @@ interface State {
 }
 
 export default class Transmitter extends React.Component<Props,State> {
+  pressStartTime: number
+  timeout: number
   valueGenerator: ValueGeneratorType
 
   constructor(props:Props) {
     super(props)
 
+    this.pressStartTime = -1
+    this.timeout = -1
     this.valueGenerator = getValueGenerator(props.generator, props.seed)
 
     this.state = {
@@ -49,7 +53,10 @@ export default class Transmitter extends React.Component<Props,State> {
     }
   }
 
-  onClick = () => {
+  onPress = () => {
+    this.pressStartTime = new Date().getTime()
+    clearTimeout(this.timeout)
+
     if(this.props.inRange) { //if the listener is in range
       this.props.clickTransmitterCallback(this.state.nextValue) //send the next value to the parent
     }
@@ -59,12 +66,17 @@ export default class Transmitter extends React.Component<Props,State> {
       showValue: true,
       value: this.state.nextValue,
     })
+  }
 
-    setTimeout(
+  onLift = () => {
+    const pressTime = new Date().getTime() - this.pressStartTime
+
+    this.timeout = window.setTimeout(
       () => this.setState({ showValue: false }),
-      1000,
+      1000 - pressTime,
     )
   }
+
 
   render() {
     const {
@@ -83,12 +95,21 @@ export default class Transmitter extends React.Component<Props,State> {
           <span>{value>0 ? value : "-"}</span>
           <FontAwesomeIcon icon={faSatelliteDish}/>
         </div>
-        
+
         <div className={"nextValue" + (showValue?"":" show")}>
           <b>Next Value: </b>{nextValue}
         </div>
 
-        <button onClick={e => this.onClick()}>Lock/Unlock</button>
+        <br/>
+
+        <div className="keyContainer">
+          <div className="key">
+            <span className="led"></span>
+            <button onMouseDown={e => this.onPress()} onMouseUp={e => this.onLift()} onMouseLeave={e => this.onLift()}>
+              <FontAwesomeIcon icon={faLockOpen}/> / <FontAwesomeIcon icon={faLock}/>
+            </button>
+          </div>
+        </div>
       </div>
     )
   }
