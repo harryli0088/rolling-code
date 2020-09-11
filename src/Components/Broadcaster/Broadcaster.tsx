@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSatelliteDish } from '@fortawesome/free-solid-svg-icons'
 
 import getValueGenerator, { ValueGeneratorType } from "utils/getValueGenerator"
 import "./broadcaster.scss"
@@ -12,6 +14,7 @@ interface Props {
 
 interface State {
   nextValue: number,
+  showValue: boolean,
   value: number,
 }
 
@@ -25,6 +28,7 @@ export default class Broadcaster extends React.Component<Props,State> {
 
     this.state = {
       nextValue: this.valueGenerator(),
+      showValue: false,
       value: -1,
     }
   }
@@ -35,6 +39,7 @@ export default class Broadcaster extends React.Component<Props,State> {
 
       this.setState({
         nextValue: this.valueGenerator(), //calculate the next value
+        showValue: false,
         value: -1,
       })
     }
@@ -47,19 +52,26 @@ export default class Broadcaster extends React.Component<Props,State> {
 
     this.setState({
       nextValue: this.valueGenerator(), //calculate the next value
+      showValue: true,
       value: this.state.nextValue,
     })
+
+    setTimeout(
+      () => this.setState({ showValue: false }),
+      1000,
+    )
   }
 
   render() {
     const {
       nextValue,
+      showValue,
       value,
     } = this.state
 
     return (
       <div className="broadcaster">
-        <div className="value">{value>0 ? value : "-"}</div>
+        <div className={"value" + (showValue?" show":"")}>{value>0 ? value : "-"} <FontAwesomeIcon icon={faSatelliteDish}/></div>
         <div className="nextValue"><b>Next Value: </b>{nextValue}</div>
         <button onClick={e => this.onClick()}>Lock/Unlock</button>
       </div>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons'
 
 import getValueGenerator, { ValueGeneratorType } from "utils/getValueGenerator"
 import "./listener.scss"
@@ -41,7 +43,7 @@ export default class Listener extends React.Component<Props,State> {
     else if(prevProps.broadcasterValue !== this.props.broadcasterValue) { //if the broadcaster value changed
       setTimeout(
         () => this.verifyValue(this.props.broadcasterValue),
-        1500
+        1000
       )
     }
   }
@@ -92,7 +94,7 @@ export default class Listener extends React.Component<Props,State> {
             <div className={"value" + (value===broadcasterValue?" valid":"")}>{value}</div>
           )}
         </div>
-        <div className={"status " + status}>{status}</div>
+        <div className={"status " + status}>{status} <FontAwesomeIcon icon={locked ? faLock : faLockOpen}/></div>
       </div>
     )
   }

@@ -49,7 +49,7 @@ class Pair extends React.Component<PairProps,PairState> {
       <div className="pair">
         <div>
           <label>Number Generator</label>
-          <select value={generator} onChange={this.changeGenerator}>
+          &nbsp; <select value={generator} onChange={this.changeGenerator}>
             <option value="counter">Simple Counter</option>
             <option value="rng">Psuedo Random Number Generator</option>
           </select>

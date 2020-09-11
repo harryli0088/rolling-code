@@ -5,5 +5,17 @@
   .value {
     font-size: 5em;
     font-weight: bold;
+    padding: 0.25em;
+    border: 1px solid gray;
+    opacity: 0;
+    transition: 1s;
+
+    &.show {
+      opacity: 1;
+    }
+
+    .svg-inline--fa {
+      float: right;
+    }
   }
 }
