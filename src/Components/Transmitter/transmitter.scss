@@ -2,6 +2,7 @@
 
 $largeTriangleSize: 15px;
 $smallTriangleSize: 12px;
+$bubbleColor: black;
 
 .transmitter {
   display: flex;
@@ -22,7 +23,30 @@ $smallTriangleSize: 12px;
     z-index: 0;
     position: relative;
     transition: 1s;
-    border:2px solid gray;
+    border:2px solid $bubbleColor;
+
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: -$largeTriangleSize;
+      left: calc(50% - #{$largeTriangleSize});
+      border-width: $largeTriangleSize $largeTriangleSize 0;
+      border-style: solid;
+      border-color: $bubbleColor transparent;
+      display: block;
+      width: 0;
+    }
+
+    &:after {
+      content:"";
+      position: absolute;
+      bottom: -$smallTriangleSize;
+      left: calc(50% - #{$smallTriangleSize});
+      border-width: $smallTriangleSize $smallTriangleSize 0;
+      border-style: solid;
+      display: block;
+      width: 0;
+    }
 
     &.counter {
       font-size: 60px;
@@ -46,29 +70,6 @@ $smallTriangleSize: 12px;
       transform: translateX(-50%);
       height: 100%;
       width: 100%;
-    }
-
-    &:before {
-      content:"";
-      position:absolute;
-      bottom:-$largeTriangleSize;
-      left:calc(50% - #{$largeTriangleSize});
-      border-width:$largeTriangleSize $largeTriangleSize 0;
-      border-style:solid;
-      border-color:gray transparent;
-      display:block;
-      width:0;
-    }
-
-    &:after {
-      content:"";
-      position:absolute;
-      bottom:-$smallTriangleSize;
-      left:calc(50% - #{$smallTriangleSize});
-      border-width:$smallTriangleSize $smallTriangleSize 0;
-      border-style:solid;
-      display:block;
-      width:0;
     }
   }
 

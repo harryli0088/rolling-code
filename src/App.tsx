@@ -75,10 +75,10 @@ function App() {
           Read more about Rolling Code: <a href="https://en.wikipedia.org/wiki/Rolling_code" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Rolling_code</a>
         </p>
 
-        <hr/>
-
-        <p>This site was built using <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a> and <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer">Typescript</a></p>
-        <p>Media icons provided by <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a></p>
+        <br/>
+        <p>Built using <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a> and <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer">Typescript</a></p>
+        <p>Media icons: <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a></p>
+        <p>CSS Speech Bubbles: <a href="http://nicolasgallagher.com/pure-css-speech-bubbles/demo/" target="_blank" rel="noopener noreferrer">http://nicolasgallagher.com/pure-css-speech-bubbles/demo/</a></p>
       </footer>
     </div>
   );

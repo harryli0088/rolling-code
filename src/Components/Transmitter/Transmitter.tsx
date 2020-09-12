@@ -88,12 +88,12 @@ export default class Transmitter extends React.Component<Props,State> {
   }
 
   onLift = () => {
-    // const pressTime = new Date().getTime() - this.pressStartTime
-    //
-    // this.timeout = window.setTimeout(
-    //   () => this.setState({ showValue: false }),
-    //   1000 - pressTime,
-    // )
+    const pressTime = new Date().getTime() - this.pressStartTime
+
+    this.timeout = window.setTimeout(
+      () => this.setState({ showValue: false }),
+      1000 - pressTime,
+    )
   }
 
 
