@@ -1,3 +1,8 @@
+@import "../../variables";
+
+$largeTriangleSize: 15px;
+$smallTriangleSize: 12px;
+
 .transmitter {
   display: flex;
   flex-direction: column;
@@ -12,11 +17,12 @@
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
     transform: translateY(25%);
     opacity: 0;
-    z-index: -1;
+    z-index: 0;
+    position: relative;
     transition: 1s;
+    border:2px solid gray;
 
     &.counter {
       font-size: 60px;
@@ -31,7 +37,41 @@
       padding-left: 0.25em;
       font-size: 40px;
     }
+
+    .dialog {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 100%;
+      width: 100%;
+    }
+
+    &:before {
+      content:"";
+      position:absolute;
+      bottom:-$largeTriangleSize;
+      left:calc(50% - #{$largeTriangleSize});
+      border-width:$largeTriangleSize $largeTriangleSize 0;
+      border-style:solid;
+      border-color:gray transparent;
+      display:block;
+      width:0;
+    }
+
+    &:after {
+      content:"";
+      position:absolute;
+      bottom:-$smallTriangleSize;
+      left:calc(50% - #{$smallTriangleSize});
+      border-width:$smallTriangleSize $smallTriangleSize 0;
+      border-style:solid;
+      display:block;
+      width:0;
+    }
   }
+
 
   .nextValue {
     opacity: 0;
@@ -80,4 +120,14 @@
       }
     }
   }
+}
+
+
+
+.pair .transmitter .value:after {
+  border-color:$pairBackgroundColor transparent;
+}
+
+.pair.kiosk .transmitter .value:after {
+  border-color:$pairKioskBackgroundColor transparent;
 }

@@ -1,8 +1,10 @@
+@import "../../variables";
+
 .pair {
-  background-color: #D6EAF8;
+  background-color: $pairBackgroundColor;
 
   &.kiosk {
-    background-color: #eee;
+    background-color: $pairKioskBackgroundColor;
   }
 
   .controlBar {
