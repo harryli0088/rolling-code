@@ -9,6 +9,7 @@ interface Props {
   clickTransmitterCallback: (value:number) => void,
   generator: "counter" | "rng",
   inRange: boolean,
+  kioskMode: boolean,
   reset: boolean,
   seed: number,
 }
@@ -20,6 +21,7 @@ interface State {
 }
 
 export default class Transmitter extends React.Component<Props,State> {
+  interval?:number
   pressStartTime: number
   timeout: number
   valueGenerator: ValueGeneratorType
@@ -36,6 +38,22 @@ export default class Transmitter extends React.Component<Props,State> {
       showValue: false,
       value: -1,
     }
+  }
+
+  componentDidMount() {
+    if(this.props.kioskMode === true) {
+      this.interval = window.setInterval(
+        () => {
+          this.onPress()
+          this.onLift()
+        },
+        3000,
+      )
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
   }
 
   componentDidUpdate(prevProps:Props) {

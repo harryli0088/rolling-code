@@ -1,0 +1,14 @@
+#app {
+  header, section, footer {
+    padding: 1em;
+  }
+
+  #imgContainer {
+    text-align: center;
+
+    img {
+      width: 100%;
+      max-width: 500px;
+    }
+  }
+}

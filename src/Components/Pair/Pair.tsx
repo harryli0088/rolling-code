@@ -4,7 +4,9 @@ import Transmitter from "Components/Transmitter/Transmitter"
 import Receiver from "Components/Receiver/Receiver"
 import "./pair.scss"
 
-interface PairProps {}
+interface PairProps {
+  kioskMode: boolean,
+}
 
 interface PairState {
   generator: "counter" | "rng",
@@ -47,8 +49,41 @@ class Pair extends React.Component<PairProps,PairState> {
     })
   }
 
+  getSettings = () => {
+    if(this.props.kioskMode === false) {
+      const {
+        generator,
+        inRange,
+      } = this.state
+
+      return (
+        <div>
+          <div>
+            <label>Number Generator</label>
+            &nbsp; <select value={generator} onChange={this.changeGenerator}>
+              <option value="counter">Simple Counter</option>
+              <option value="rng">Psuedorandom Number Generator</option>
+            </select>
+          </div>
+
+          <div>
+            <label>In Range: </label> <input type="checkbox" checked={inRange} onChange={e => this.setState({inRange: !inRange})}/>
+          </div>
+
+          <div>
+            <button onClick={e => this.reset()}>Reset</button>
+          </div>
+        </div>
+      )
+    }
+  }
+
 
   render() {
+    const {
+      kioskMode,
+    } = this.props
+
     const {
       generator,
       inRange,
@@ -59,21 +94,7 @@ class Pair extends React.Component<PairProps,PairState> {
 
     return (
       <div className="pair">
-        <div>
-          <label>Number Generator</label>
-          &nbsp; <select value={generator} onChange={this.changeGenerator}>
-            <option value="counter">Simple Counter</option>
-            <option value="rng">Psuedorandom Number Generator</option>
-          </select>
-        </div>
-
-        <div>
-          <label>In Range: </label> <input type="checkbox" checked={inRange} onChange={e => this.setState({inRange: !inRange})}/>
-        </div>
-
-        <div>
-          <button onClick={e => this.reset()}>Reset</button>
-        </div>
+        {this.getSettings()}
 
         <div className={"devices " + (inRange?"inRange":"outOfRange")}>
           <div>
@@ -81,6 +102,7 @@ class Pair extends React.Component<PairProps,PairState> {
               clickTransmitterCallback={this.clickTransmitterCallback}
               generator={generator}
               inRange={inRange}
+              kioskMode={kioskMode}
               reset={reset}
               seed={seed}
             />

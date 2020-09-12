@@ -98,8 +98,8 @@ export default class Receiver extends React.Component<Props,State> {
 
         <b>Generated List of Valid Numbers</b>
         <div>
-          {this.state.list.map(value =>
-            <div className={"value" + (value===transmitterValue?" valid":"")}>{value}</div>
+          {this.state.list.map((value, valueIndex) =>
+            <div key={valueIndex} className={"value" + (value===transmitterValue?" valid":"")}>{value}</div>
           )}
         </div>
       </div>
