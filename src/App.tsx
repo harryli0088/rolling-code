@@ -10,18 +10,18 @@ function App() {
   return (
     <div id="app">
       <header>
-        <h2>Rolling Code</h2>
+        <h1>Rolling Code</h1>
         <div><i>Securing keyless entry systems</i></div>
+      </header>
 
-        <br/>
-
+      <section className="container">
         <div id="imgContainer">
           <img src={patrick} alt="Open Sesame"/>
         </div>
 
         <br/>
 
-        <div>Keyless entry systems such as cars and garage doors conveniently allow us to remotely lock or unlock our belongings. With car keys, whenever we press the button to lock or unlock, our key broadcasts a signal out into the open, hoping that our car is in range to hear. But how is this system secured?</div>
+        <div>Keyless entry systems such as cars and garage doors allow us to remotely lock or unlock our belongings. With car keys, whenever we press a button to lock or unlock, our key broadcasts a signal out into the open, hoping that our car is in range to hear. But how is this system secured?</div>
 
         <br/>
 
@@ -29,7 +29,7 @@ function App() {
 
         <br/>
 
-        <div>Imagine we had to shout a passcode "OPEN SESAME" on the top of our lungs anytime we wanted to unlock our car! Anybody could simply listen then repeat the same passcode ("OPEN SESAME") to steal it!</div>
+        <div>Imagine we had to shout a passcode "OPEN SESAME" on the top of our lungs anytime we wanted to unlock our car! Anybody could listen then steal our car by repeating the same passcode ("OPEN SESAME")!</div>
 
         <hr/>
 
@@ -51,23 +51,22 @@ function App() {
 
         <div>This is why car keys need to "pair" or synchronize with the car first before being usable.</div>
 
+        <hr/>
+
+        <h3>Pseusorandom Number Generators</h3>
+
         <div>Instead of using a simple counter, rolling code implementations can use <b>Pseudorandom Number Generators</b> (PRNGs). These PRNGs, given a seed, will deterministically generate successive numbers; ideally, the generated sequence of numbers will be unpredictable (ie close to random) and will be completely different given a different seed.</div>
-      </header>
 
-      <section>
+        <h3>Try it out yourself!</h3>
+
         <Pair kioskMode={false}/>
-      </section>
 
-      <hr/>
-
-      <section>
         <h3>Why does the car have a list of numbers?</h3>
+
         <div>The car generates a list of numbers in case we press our key button when the car is not in range. Because our key generates numbers "forwards" and does not go back to previous numbers, our car must keep a list of future numbers that our key might send. When we our key transmits a number in the middle of the list, our car will invalidate all previous numbers and generate new numbers to fill the list. In this simple example, if we press our key too many times, it will generate numbers beyond those in our car's list, and we will be permanantly locked out. Rolling Code systems, such as <a href="https://en.wikipedia.org/wiki/KeeLoq" target="_blank" rel="noopener noreferrer">KeeLoq</a> can be designed to avoid this issue.</div>
       </section>
 
-      <hr/>
-
-      <footer>
+      <footer className="container">
         <p>Thank you to Andrew Nohawk for the inspiration, explanation, and real-life hacking examples! <a href="https://www.andrewmohawk.com/2016/02/05/bypassing-rolling-code-systems/" target="_blank" rel="noopener noreferrer">https://www.andrewmohawk.com/2016/02/05/bypassing-rolling-code-systems/</a></p>
 
         <p>Github Repo: <a href="https://github.com/harryli0088/rolling-code" target="_blank" rel="noopener noreferrer">https://github.com/harryli0088/rolling-code</a></p>

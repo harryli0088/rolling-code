@@ -86,11 +86,27 @@ export default class Receiver extends React.Component<Props,State> {
     }
   }
 
-  render() {
+  getGeneratedValues = () => {
     const {
+      openSesame,
       transmitterMessage,
     } = this.props
 
+    if(!this.props.openSesame) {
+      return (
+        <React.Fragment>
+          <b>Generated Passcode List</b>
+          <div>
+            {this.state.list.map((value, valueIndex) =>
+              <div key={valueIndex} className={"value" + (value===transmitterMessage.value?" valid":"")}>{value}</div>
+            )}
+          </div>
+        </React.Fragment>
+      )
+    }
+  }
+
+  render() {
     const {
       locked,
     } = this.state
@@ -102,12 +118,7 @@ export default class Receiver extends React.Component<Props,State> {
         <div className={"status " + status}>{status} <FontAwesomeIcon icon={locked ? faLock : faLockOpen}/></div>
         <br/>
 
-        <b>Generated List of Valid Numbers</b>
-        <div>
-          {this.state.list.map((value, valueIndex) =>
-            <div key={valueIndex} className={"value" + (value===transmitterMessage.value?" valid":"")}>{value}</div>
-          )}
-        </div>
+        {this.getGeneratedValues()}
       </div>
     )
   }

@@ -1,6 +1,34 @@
 #app {
-  header, section, footer {
+  header {
+    height: 50vh;
+    background: rgb(29, 29, 31);
+    color: white;
     padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  section, footer {
+    padding: 1em;
+  }
+
+  footer {
+    background: #ddd;
+    border-top: 1px solid gray;
+  }
+
+  .container {
+    padding-left: 15vw;
+    padding-right: 15vw;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .container {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
   }
 
   #imgContainer {

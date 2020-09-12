@@ -79,22 +79,22 @@ class Pair extends React.Component<PairProps,PairState> {
       } = this.state
 
       return (
-        <div>
+        <div className="controlBar">
           <div>
-            <label>Number Generator</label>
-            &nbsp; <select value={generator} onChange={this.changeGenerator}>
-              <option value="counter">Simple Counter</option>
-              <option value="rng">Psuedorandom Number Generator</option>
-            </select>
+            <div>
+              <b>Number Generator:</b>
+              &nbsp; <select value={generator} onChange={this.changeGenerator}>
+                <option value="counter">Simple Counter</option>
+                <option value="rng">Psuedorandom Number Generator</option>
+              </select>
+            </div>
+
+            <div>
+              <b>In Range: </b> <input type="checkbox" checked={inRange} onChange={e => this.setState({inRange: !inRange})}/>
+            </div>
           </div>
 
-          <div>
-            <label>In Range: </label> <input type="checkbox" checked={inRange} onChange={e => this.setState({inRange: !inRange})}/>
-          </div>
-
-          <div>
-            <button onClick={e => this.reset()}>Reset</button>
-          </div>
+          <button onClick={e => this.reset()}>Reset</button>
         </div>
       )
     }
@@ -116,7 +116,7 @@ class Pair extends React.Component<PairProps,PairState> {
     } = this.state
 
     return (
-      <div className="pair">
+      <div className={"pair" + (kioskMode?" kiosk":"")}>
         {this.getSettings()}
 
         <div className={"devices " + (inRange?"inRange":"outOfRange")}>
