@@ -2,19 +2,21 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons'
 
-import getValueGenerator, { ValueGeneratorType } from "utils/getValueGenerator"
+import { TransmitterMessageType } from "Components/Pair/Pair"
+import getValueGenerator, { GeneratorType, ValueGeneratorType } from "utils/getValueGenerator"
 import "./receiver.scss"
 
 interface Props {
-  generator: "counter" | "rng",
+  generator: GeneratorType,
   listSize: number,
-  seed: number,
+  openSesame?: boolean,
   reset: boolean,
-  transmitterValue: number,
+  seed: number,
+  transmitterMessage: TransmitterMessageType,
 }
 
 interface State {
-  list: number[],
+  list: string[],
   locked: boolean,
 }
 
@@ -44,15 +46,15 @@ export default class Receiver extends React.Component<Props,State> {
         locked: true,
       })
     }
-    else if(prevProps.transmitterValue !== this.props.transmitterValue) { //if the transmitter value changed
+    else if(prevProps.transmitterMessage !== this.props.transmitterMessage) { //if the transmitter value changed
       setTimeout(
-        () => this.verifyValue(this.props.transmitterValue),
+        () => this.verifyValue(this.props.transmitterMessage.value),
         1000
       )
     }
   }
 
-  generateList = (list:number[]):number[] => {
+  generateList = (list:string[]):string[] => {
     //while the list is too short
     while(list.length < this.props.listSize) {
       list.push(this.valueGenerator()) //push a newly generated value
@@ -61,13 +63,17 @@ export default class Receiver extends React.Component<Props,State> {
     return list
   }
 
-  verifyValue = (value:number) => {
+  verifyValue = (value:string) => {
     const {
       list,
       locked,
     } = this.state
 
     const index = list.indexOf(value) //check whether the value is in the list
+
+    if(this.props.openSesame) {
+      console.log(JSON.parse(JSON.stringify(this.state)), index, list[index])
+    }
 
     if(list[index]) { //if the value is in the list
       this.setState({
@@ -82,7 +88,7 @@ export default class Receiver extends React.Component<Props,State> {
 
   render() {
     const {
-      transmitterValue,
+      transmitterMessage,
     } = this.props
 
     const {
@@ -99,7 +105,7 @@ export default class Receiver extends React.Component<Props,State> {
         <b>Generated List of Valid Numbers</b>
         <div>
           {this.state.list.map((value, valueIndex) =>
-            <div key={valueIndex} className={"value" + (value===transmitterValue?" valid":"")}>{value}</div>
+            <div key={valueIndex} className={"value" + (value===transmitterMessage.value?" valid":"")}>{value}</div>
           )}
         </div>
       </div>

@@ -23,6 +23,12 @@ function App() {
 
         <div>Keyless entry systems such as cars and garage doors conveniently allow us to remotely lock or unlock our belongings. With car keys, whenever we press the button to lock or unlock, our key broadcasts a signal out into the open, hoping that our car is in range to hear. But how is this system secured?</div>
 
+        <br/>
+
+        <Pair kioskMode={true} openSesame/>
+
+        <br/>
+
         <div>Imagine we had to shout a passcode "OPEN SESAME" on the top of our lungs anytime we wanted to unlock our car! Anybody could simply listen then repeat the same passcode ("OPEN SESAME") to steal it!</div>
 
         <hr/>

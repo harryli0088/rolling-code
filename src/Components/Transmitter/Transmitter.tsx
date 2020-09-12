@@ -2,22 +2,23 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSatelliteDish, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons'
 
-import getValueGenerator, { ValueGeneratorType } from "utils/getValueGenerator"
+import getValueGenerator, { GeneratorType, ValueGeneratorType } from "utils/getValueGenerator"
 import "./transmitter.scss"
 
 interface Props {
-  clickTransmitterCallback: (value:number) => void,
-  generator: "counter" | "rng",
+  clickTransmitterCallback: (value:string) => void,
+  generator: GeneratorType,
   inRange: boolean,
   kioskMode: boolean,
+  openSesame?: boolean,
   reset: boolean,
   seed: number,
 }
 
 interface State {
-  nextValue: number,
+  nextValue: string,
   showValue: boolean,
-  value: number,
+  value: string,
 }
 
 export default class Transmitter extends React.Component<Props,State> {
@@ -36,7 +37,7 @@ export default class Transmitter extends React.Component<Props,State> {
     this.state = {
       nextValue: this.valueGenerator(),
       showValue: false,
-      value: -1,
+      value: "",
     }
   }
 
@@ -66,7 +67,7 @@ export default class Transmitter extends React.Component<Props,State> {
       this.setState({
         nextValue: this.valueGenerator(), //calculate the next value
         showValue: false,
-        value: -1,
+        value: "",
       })
     }
   }
@@ -99,6 +100,7 @@ export default class Transmitter extends React.Component<Props,State> {
   render() {
     const {
       generator,
+      openSesame,
     } = this.props
 
     const {
@@ -110,11 +112,11 @@ export default class Transmitter extends React.Component<Props,State> {
     return (
       <div className="transmitter">
         <div className={`value ${generator}` + (showValue?" show":"")}>
-          <span>{value>0 ? value : "-"}</span>
+          <span>{value ||  "-"}</span>
           <FontAwesomeIcon icon={faSatelliteDish}/>
         </div>
 
-        <div className={"nextValue" + (showValue?"":" show")}>
+        <div className={"nextValue" + (showValue?"":" show")} style={{opacity: openSesame?0:1}}>
           <b>Next Value: </b>{nextValue}
         </div>
 

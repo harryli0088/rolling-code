@@ -1,19 +1,27 @@
 import React from 'react';
 
+import { GeneratorType } from "utils/getValueGenerator"
 import Transmitter from "Components/Transmitter/Transmitter"
 import Receiver from "Components/Receiver/Receiver"
 import "./pair.scss"
 
 interface PairProps {
   kioskMode: boolean,
+  openSesame?: boolean,
+}
+
+
+export type TransmitterMessageType = {
+  index: number,
+  value: string,
 }
 
 interface PairState {
-  generator: "counter" | "rng",
+  generator: GeneratorType,
   inRange: boolean,
   reset: boolean, //use this field to induce resets in child components
   seed: number,
-  transmitterValue: number,
+  transmitterMessage: TransmitterMessageType,
 }
 
 class Pair extends React.Component<PairProps,PairState> {
@@ -21,11 +29,14 @@ class Pair extends React.Component<PairProps,PairState> {
     super(props)
 
     this.state = {
-      generator: "counter",
+      generator: props.openSesame ? "openSesame" : "counter",
       inRange: true,
       reset: false,
       seed: new Date().getTime(),
-      transmitterValue: -1,
+      transmitterMessage: {
+        index: -1,
+        value: "",
+      },
     }
   }
 
@@ -34,18 +45,29 @@ class Pair extends React.Component<PairProps,PairState> {
     if(value==="rng" || value==="counter") {
       this.setState({
         generator: value,
-        transmitterValue: -1,
+        transmitterMessage: {
+          index: -1,
+          value: "",
+        },
       })
     }
   }
 
-  clickTransmitterCallback = (value:number) => this.setState({transmitterValue: value})
+  clickTransmitterCallback = (value:string) => this.setState({
+    transmitterMessage: {
+      index: this.state.transmitterMessage.index + 1,
+      value,
+    },
+  })
 
   reset = () => {
     this.setState({
       inRange: true,
       reset: !this.state.reset,
-      transmitterValue: -1,
+      transmitterMessage: {
+        index: -1,
+        value: "",
+      },
     })
   }
 
@@ -82,6 +104,7 @@ class Pair extends React.Component<PairProps,PairState> {
   render() {
     const {
       kioskMode,
+      openSesame,
     } = this.props
 
     const {
@@ -89,7 +112,7 @@ class Pair extends React.Component<PairProps,PairState> {
       inRange,
       reset,
       seed,
-      transmitterValue,
+      transmitterMessage,
     } = this.state
 
     return (
@@ -103,6 +126,7 @@ class Pair extends React.Component<PairProps,PairState> {
               generator={generator}
               inRange={inRange}
               kioskMode={kioskMode}
+              openSesame={openSesame}
               reset={reset}
               seed={seed}
             />
@@ -111,10 +135,11 @@ class Pair extends React.Component<PairProps,PairState> {
           <div>
             <Receiver
               generator={generator}
-              listSize={5}
+              listSize={openSesame ? 1 : 5}
+              openSesame={openSesame}
               reset={reset}
               seed={seed}
-              transmitterValue={transmitterValue}
+              transmitterMessage={transmitterMessage}
             />
           </div>
         </div>
