@@ -5,9 +5,13 @@ $smallTriangleSize: 12px;
 $bubbleColor: black;
 
 .transmitter {
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
+  margin-top: 1em;
+  margin-bottom: -1em;
 
   .value {
     display: flex;
