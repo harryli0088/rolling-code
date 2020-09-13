@@ -145,7 +145,7 @@ export default class Transmitter extends React.Component<Props,State> {
           <FontAwesomeIcon icon={faSatelliteDish}/>
         </div>
 
-        <div className={"nextValue" + (showValue?"":" show")} style={{opacity: openSesame?0:1}}>
+        <div className={"nextValue" + (showValue?"":" show") + (openSesame?" openSesame":"")}>
           <b>Next Value: </b>{nextValue}
         </div>
 

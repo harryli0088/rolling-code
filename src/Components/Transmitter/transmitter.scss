@@ -86,6 +86,10 @@ $bubbleColor: black;
       opacity: 1;
       transition: 1s;
     }
+
+    &.openSesame {
+      opacity: 0;
+    }
   }
 
   .keyContainer {
