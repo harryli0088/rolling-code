@@ -125,7 +125,7 @@ class Pair extends React.Component<PairProps,PairState> {
               <b>Number Generator:</b>
               &nbsp; <select value={generator} onChange={this.changeGenerator}>
                 <option value="counter">Simple Counter</option>
-                <option value="rng">Psuedorandom</option>
+                <option value="rng">Pseudo Random</option>
               </select>
             </div>
 
