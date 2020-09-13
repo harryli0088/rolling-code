@@ -79,6 +79,10 @@ function App() {
           Read more about Rolling Code: <a href="https://en.wikipedia.org/wiki/Rolling_code" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Rolling_code</a>
         </p>
 
+        <p>
+          Read more about Pseudo Random Number Generators: <a href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Pseudorandom_number_generator</a>
+        </p>
+
         <br/>
         <p>Built using <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a> and <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer">Typescript</a></p>
         <p>Media icons: <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a></p>
