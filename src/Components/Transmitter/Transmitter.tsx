@@ -78,7 +78,10 @@ export default class Transmitter extends React.Component<Props,State> {
   }
 
   onPress = (e?: React.MouseEvent | React.TouchEvent) => {
-    if(e) e.stopPropagation()
+    if(e) {
+      e.stopPropagation()
+      e.preventDefault()
+    }
 
     this.pressStartTime = new Date().getTime()
     clearTimeout(this.timeout)
@@ -96,7 +99,10 @@ export default class Transmitter extends React.Component<Props,State> {
   }
 
   onLift = (e?: React.MouseEvent | React.TouchEvent) => {
-    if(e) e.stopPropagation()
+    if(e) {
+      e.stopPropagation()
+      e.preventDefault()
+    }
 
     const pressTime = new Date().getTime() - this.pressStartTime
 
