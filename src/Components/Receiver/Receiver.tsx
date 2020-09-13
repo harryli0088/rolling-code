@@ -115,7 +115,7 @@ export default class Receiver extends React.Component<Props,State> {
 
     return (
       <div className="receiver">
-        <div className={"status " + status}>{status} <FontAwesomeIcon icon={locked ? faLock : faLockOpen}/></div>
+        <div className={"status " + status}>Car is {status} <FontAwesomeIcon icon={locked ? faLock : faLockOpen}/></div>
         <br/>
 
         {this.getGeneratedValues()}

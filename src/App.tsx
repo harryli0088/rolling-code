@@ -41,7 +41,7 @@ function App() {
 
         <br/>
 
-        <div>An example this is a simple counter. Both the <b>transmitter</b> (our key <FontAwesomeIcon icon={faKey}/>) and <b>receiver</b> (our car <FontAwesomeIcon icon={faCarSide}/>) start from 0 and will increment their counts by one. Everytime we press the key, the key sends out next the number (ie 1...2...3...). Our car will listen for these numbers and internally increment its own count (1...2...3...) whenever it hears the valid number, so that no number is ever repeated. <b>A passcode is only valid for one use, and will not be accepted again</b>. In order for this to work, both the transmitter and the receiver must:</div>
+        <div>An example this is a simple counter. Both the transmitter (our key <FontAwesomeIcon icon={faKey}/>) and receiver (our car <FontAwesomeIcon icon={faCarSide}/>) start from 0 and will increment their counts by one. Everytime we press the key, the key sends out next the number (ie 1...2...3...). Our car will listen for these numbers and internally increment its own count (1...2...3...) whenever it hears the valid number, so that no number is ever repeated. <b>A passcode is only valid for one use, and will not be accepted again</b>. In order for this to work, both the transmitter and the receiver must:</div>
         <ol>
           <li>Agree on the same starting number (called a "seed")</li>
           <li>Use the same function to deterministically generate successive numbers</li>
