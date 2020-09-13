@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRedo } from '@fortawesome/free-solid-svg-icons'
+import { faUndo } from '@fortawesome/free-solid-svg-icons'
 
 import { GeneratorType } from "utils/getValueGenerator"
 import Transmitter from "Components/Transmitter/Transmitter"
@@ -135,7 +135,7 @@ class Pair extends React.Component<PairProps,PairState> {
           </div>
 
           <div>
-            <button onClick={e => this.reset()}><FontAwesomeIcon icon={faRedo}/></button>
+            <button onClick={e => this.reset()}><FontAwesomeIcon icon={faUndo} title="Reset!"/></button>
           </div>
         </div>
       )
