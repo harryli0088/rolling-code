@@ -6,6 +6,7 @@ import getValueGenerator, { GeneratorType, ValueGeneratorType } from "utils/getV
 import "./transmitter.scss"
 
 interface Props {
+  autoPlay: boolean,
   clickTransmitterCallback: (value:string) => void,
   generator: GeneratorType,
   inRange: boolean,
@@ -43,26 +44,12 @@ export default class Transmitter extends React.Component<Props,State> {
     }
   }
 
-  componentDidMount() {
-    if(this.props.kioskMode === true) {
-      this.interval = window.setInterval(
-        () => {
-          this.onPress()
-          setTimeout(
-            this.onLift,
-            500,
-          )
-        },
-        3000,
-      )
-    }
-  }
-
   componentWillUnmount() {
     clearInterval(this.interval)
   }
 
   componentDidUpdate(prevProps:Props) {
+    //if our generator has changed OR if we need to reset
     if(
       prevProps.generator !== this.props.generator
       || prevProps.reset !== this.props.reset
@@ -75,11 +62,36 @@ export default class Transmitter extends React.Component<Props,State> {
         value: "",
       })
     }
+
+    //we should start or stop autoplaying
+    if(
+      this.props.kioskMode //if we are in kiosk mode
+      && prevProps.autoPlay !== this.props.autoPlay //if our autoplay mode has changed
+    ) {
+      //if we should start autoplaying
+      if(this.props.autoPlay) {
+        this.autoPress()
+        this.interval = window.setInterval(
+          this.autoPress,
+          3000,
+        )
+      }
+      else {
+        clearInterval(this.interval) //stop autoplaying
+      }
+    }
+  }
+
+  autoPress = () => {
+    this.onPress()
+    setTimeout(
+      this.onLift,
+      500,
+    )
   }
 
   onPress = (e?: React.MouseEvent | React.TouchEvent) => {
     if(e) {
-      e.stopPropagation()
       e.preventDefault()
     }
 
@@ -100,7 +112,6 @@ export default class Transmitter extends React.Component<Props,State> {
 
   onLift = (e?: React.MouseEvent | React.TouchEvent) => {
     if(e) {
-      e.stopPropagation()
       e.preventDefault()
     }
 

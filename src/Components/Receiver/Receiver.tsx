@@ -71,10 +71,6 @@ export default class Receiver extends React.Component<Props,State> {
 
     const index = list.indexOf(value) //check whether the value is in the list
 
-    if(this.props.openSesame) {
-      console.log(JSON.parse(JSON.stringify(this.state)), index, list[index])
-    }
-
     if(list[index]) { //if the value is in the list
       this.setState({
         list: this.generateList( // generate new values for the list

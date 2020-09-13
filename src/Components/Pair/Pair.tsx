@@ -17,6 +17,7 @@ export type TransmitterMessageType = {
 }
 
 interface PairState {
+  autoPlay: boolean,
   generator: GeneratorType,
   inRange: boolean,
   reset: boolean, //use this field to induce resets in child components
@@ -25,10 +26,14 @@ interface PairState {
 }
 
 class Pair extends React.Component<PairProps,PairState> {
+  observer?: IntersectionObserver
+  ref: React.RefObject<HTMLDivElement>
+
   constructor(props:PairProps) {
     super(props)
 
     this.state = {
+      autoPlay: false,
       generator: props.openSesame ? "openSesame" : "counter",
       inRange: true,
       reset: false,
@@ -37,6 +42,39 @@ class Pair extends React.Component<PairProps,PairState> {
         index: -1,
         value: "",
       },
+    }
+
+    this.ref = React.createRef()
+  }
+
+  componentDidMount() {
+    //if we should intersection observe this element to autoplay
+    if(
+      this.props.kioskMode //if this is in kiosk mode
+      && this.ref.current //if our ref is ready
+    ) {
+      const options: IntersectionObserverInit = {
+        root: document.querySelector("#app"),
+        threshold: 0.5,
+      }
+
+      //create the observer
+      this.observer = new IntersectionObserver(this.observerCallback, options)
+      this.observer.observe(this.ref.current)
+    }
+  }
+
+  componentWillUnmount() {
+    //if we have an observer running
+    if(this.observer) {
+      this.observer.disconnect()
+    }
+  }
+
+  observerCallback = (entries:IntersectionObserverEntry[], observer:IntersectionObserver) => {
+    //if this is in kiosk mode
+    if(this.props.kioskMode) {
+      this.setState({autoPlay: entries[0].isIntersecting}) //set auto play to whether this element is visible
     }
   }
 
@@ -108,6 +146,7 @@ class Pair extends React.Component<PairProps,PairState> {
     } = this.props
 
     const {
+      autoPlay,
       generator,
       inRange,
       reset,
@@ -116,12 +155,13 @@ class Pair extends React.Component<PairProps,PairState> {
     } = this.state
 
     return (
-      <div className={"pair" + (kioskMode?" kiosk":"")}>
+      <div className={"pair" + (kioskMode?" kiosk":"")} ref={this.ref}>
         {this.getSettings()}
 
         <div className={"devices " + (inRange?"inRange":"outOfRange")}>
           <div>
             <Transmitter
+              autoPlay={autoPlay}
               clickTransmitterCallback={this.clickTransmitterCallback}
               generator={generator}
               inRange={inRange}
