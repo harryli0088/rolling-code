@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRedo } from '@fortawesome/free-solid-svg-icons'
 
 import { GeneratorType } from "utils/getValueGenerator"
 import Transmitter from "Components/Transmitter/Transmitter"
@@ -123,7 +125,7 @@ class Pair extends React.Component<PairProps,PairState> {
               <b>Number Generator:</b>
               &nbsp; <select value={generator} onChange={this.changeGenerator}>
                 <option value="counter">Simple Counter</option>
-                <option value="rng">Psuedorandom Number Generator</option>
+                <option value="rng">Psuedorandom</option>
               </select>
             </div>
 
@@ -132,7 +134,9 @@ class Pair extends React.Component<PairProps,PairState> {
             </div>
           </div>
 
-          <button onClick={e => this.reset()}>Reset</button>
+          <div>
+            <button onClick={e => this.reset()}><FontAwesomeIcon icon={faRedo}/></button>
+          </div>
         </div>
       )
     }

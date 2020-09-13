@@ -3,8 +3,6 @@
 $largeTriangleSize: 15px;
 $smallTriangleSize: 12px;
 $bubbleColor: black;
-$buttonHeight: 3px;
-$buttonShadowColor: #aaa;
 
 .transmitter {
   height: 100%;
@@ -107,32 +105,14 @@ $buttonShadowColor: #aaa;
         background-color: gray;
       }
 
-      button {
-        padding: 0.5em;
-        border-radius: 10px;
-        background: #777;
-        color: white;
-        border: none;
-        outline: none;
-        box-shadow: 0 $buttonHeight $buttonShadowColor;
-        margin-top: 0;
-        user-select: none;
-        margin-bottom: 0;
-        transition: 0.1s;
-
-        &:hover {
-          filter: brightness(1.25);
-        }
-      }
-
       &.pressed {
         .led {
           background-color: red;
         }
 
         button {
-          margin-top: $buttonHeight;
-          margin-bottom: -$buttonHeight;
+          margin-top: $buttonShadowHeight;
+          margin-bottom: -$buttonShadowHeight;
           box-shadow: 0 0 $buttonShadowColor;
         }
       }
