@@ -84,7 +84,6 @@ export default class Receiver extends React.Component<Props,State> {
 
   getGeneratedValues = () => {
     const {
-      openSesame,
       transmitterMessage,
     } = this.props
 

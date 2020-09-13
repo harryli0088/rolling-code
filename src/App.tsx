@@ -1,5 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faKey, faCarSide } from '@fortawesome/free-solid-svg-icons'
 
 import patrick from "patrick.jpg"
@@ -10,6 +11,9 @@ function App() {
   return (
     <div id="app">
       <header>
+        <a id="github" href="https://github.com/harryli0088/rolling-code" target="_blank" rel="noopener noreferrer">
+          <FontAwesomeIcon icon={faGithub}/>
+        </a>
         <h1>Rolling Code</h1>
         <div><i>Securing keyless entry systems</i></div>
       </header>
