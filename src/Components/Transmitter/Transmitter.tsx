@@ -17,6 +17,7 @@ interface Props {
 
 interface State {
   nextValue: string,
+  pressed: boolean,
   showValue: boolean,
   value: string,
 }
@@ -36,6 +37,7 @@ export default class Transmitter extends React.Component<Props,State> {
 
     this.state = {
       nextValue: this.valueGenerator(),
+      pressed: false,
       showValue: false,
       value: "",
     }
@@ -46,7 +48,10 @@ export default class Transmitter extends React.Component<Props,State> {
       this.interval = window.setInterval(
         () => {
           this.onPress()
-          this.onLift()
+          setTimeout(
+            this.onLift,
+            500,
+          )
         },
         3000,
       )
@@ -82,6 +87,7 @@ export default class Transmitter extends React.Component<Props,State> {
 
     this.setState({
       nextValue: this.valueGenerator(), //calculate the next value
+      pressed: true,
       showValue: true,
       value: this.state.nextValue,
     })
@@ -94,6 +100,8 @@ export default class Transmitter extends React.Component<Props,State> {
       () => this.setState({ showValue: false }),
       1000 - pressTime,
     )
+
+    this.setState({ pressed: false })
   }
 
 
@@ -123,7 +131,7 @@ export default class Transmitter extends React.Component<Props,State> {
         <br/>
 
         <div className="keyContainer">
-          <div className="key">
+          <div className={"key" + (this.state.pressed?" pressed":"")}>
             <span className="led"></span>
             <button onMouseDown={e => this.onPress()} onMouseUp={e => this.onLift()} onMouseLeave={e => this.onLift()}>
               <FontAwesomeIcon icon={faLockOpen}/> / <FontAwesomeIcon icon={faLock}/>

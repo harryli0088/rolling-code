@@ -3,6 +3,8 @@
 $largeTriangleSize: 15px;
 $smallTriangleSize: 12px;
 $bubbleColor: black;
+$buttonHeight: 3px;
+$buttonShadowColor: #aaa;
 
 .transmitter {
   height: 100%;
@@ -90,7 +92,7 @@ $bubbleColor: black;
 
   .keyContainer {
     .key {
-      background: #444;
+      background: #333;
       padding: 1em;
       border-top-left-radius: 1.5em;
       border-top-right-radius: 1.5em;
@@ -105,23 +107,33 @@ $bubbleColor: black;
         background-color: gray;
       }
 
-      &:active {
-        .led {
-          background-color: red;
-        }
-      }
-
-
       button {
         padding: 0.5em;
         border-radius: 10px;
-        background: #444;
+        background: #666;
         color: white;
-        border-left-color: black;
-        border-top-color: black;
-        border-right-color: #ccc;
-        border-bottom-color: #ccc;
+        border: none;
         outline: none;
+        box-shadow: 0 $buttonHeight $buttonShadowColor;
+        margin-top: 0;
+        margin-bottom: 0;
+        transition: 0.1s;
+
+        &:hover {
+          filter: brightness(1.25);
+        }
+      }
+
+      &.pressed {
+        .led {
+          background-color: red;
+        }
+
+        button {
+          margin-top: $buttonHeight;
+          margin-bottom: -$buttonHeight;
+          box-shadow: 0 0 $buttonShadowColor;
+        }
       }
     }
   }
