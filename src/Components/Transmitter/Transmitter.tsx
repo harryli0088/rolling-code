@@ -77,7 +77,9 @@ export default class Transmitter extends React.Component<Props,State> {
     }
   }
 
-  onPress = () => {
+  onPress = (e?: React.MouseEvent | React.TouchEvent) => {
+    if(e) e.stopPropagation()
+
     this.pressStartTime = new Date().getTime()
     clearTimeout(this.timeout)
 
@@ -93,7 +95,9 @@ export default class Transmitter extends React.Component<Props,State> {
     })
   }
 
-  onLift = () => {
+  onLift = (e?: React.MouseEvent | React.TouchEvent) => {
+    if(e) e.stopPropagation()
+
     const pressTime = new Date().getTime() - this.pressStartTime
 
     this.timeout = window.setTimeout(
@@ -133,7 +137,14 @@ export default class Transmitter extends React.Component<Props,State> {
         <div className="keyContainer">
           <div className={"key" + (this.state.pressed?" pressed":"")}>
             <span className="led"></span>
-            <button onMouseDown={e => this.onPress()} onMouseUp={e => this.onLift()} onMouseLeave={e => this.onLift()}>
+            <button
+              onMouseDown={this.onPress}
+              onMouseUp={this.onLift}
+              onMouseLeave={this.onLift}
+              onTouchStart={this.onPress}
+              onTouchEnd={this.onLift}
+              onTouchCancel={this.onLift}
+            >
               <FontAwesomeIcon icon={faLockOpen}/> / <FontAwesomeIcon icon={faLock}/>
             </button>
           </div>

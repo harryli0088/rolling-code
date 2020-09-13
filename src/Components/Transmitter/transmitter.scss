@@ -116,6 +116,7 @@ $buttonShadowColor: #aaa;
         outline: none;
         box-shadow: 0 $buttonHeight $buttonShadowColor;
         margin-top: 0;
+        user-select: none;
         margin-bottom: 0;
         transition: 0.1s;
 
