@@ -18,19 +18,52 @@
   .devices {
     display: flex;
     flex-direction: row;
-    justify-content: center;
 
     > div {
       padding: 1em;
       transition: 1s;
+      transition-property: background-color;
+      width: 50%;
+
+      &:first-child {
+        border-right: 1px dashed gray;
+      }
     }
 
     &.outOfRange {
-      > div:first-child {
-        transform: translateX(-75%);
+      > div {
+        &:first-child {
+          border-right: 3px solid black;
+          background-color: $outOfRangeTransmitterColor;
+        }
+
+        &:last-child {
+          background-color: #D6EAF8;
+        }
       }
-      > div:last-child {
-        transform: translateX(75%);
+    }
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .devices {
+      flex-direction: column-reverse;
+
+      > div {
+        width: auto;
+
+        &:first-child {
+          border-top: 1px dashed gray;
+          border-right: none
+        }
+      }
+
+      &.outOfRange {
+        > div {
+          &:first-child {
+            border-top: 3px solid black;
+            border-right: none
+          }
+        }
       }
     }
   }

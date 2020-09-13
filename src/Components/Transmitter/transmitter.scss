@@ -110,7 +110,7 @@ $buttonShadowColor: #aaa;
       button {
         padding: 0.5em;
         border-radius: 10px;
-        background: #666;
+        background: #777;
         color: white;
         border: none;
         outline: none;
@@ -147,4 +147,8 @@ $buttonShadowColor: #aaa;
 
 .pair.kiosk .transmitter .value:after {
   border-color:$pairKioskBackgroundColor transparent;
+}
+
+.pair .outOfRange .transmitter .value:after {
+  border-color:$outOfRangeTransmitterColor transparent;
 }
