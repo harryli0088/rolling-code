@@ -53,7 +53,7 @@ function App() {
 
         <hr/>
 
-        <h3>Pseusorandom Number Generators</h3>
+        <h3>Pseudo Random Number Generators</h3>
 
         <div>Instead of using a simple counter, rolling code implementations can use <b>Pseudo Random Number Generators</b> (PRNGs). These PRNGs, given a seed, will deterministically generate successive numbers; ideally, the generated sequence of numbers will be unpredictable (ie close to random) and will be completely different given a different seed.</div>
 
