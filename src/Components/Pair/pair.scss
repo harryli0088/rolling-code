@@ -8,7 +8,7 @@
   }
 
   .controlBar {
-    padding: 1em;
+    padding: 0.5em;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid gray;
@@ -20,7 +20,7 @@
     flex-direction: row;
 
     > div {
-      padding: 1em;
+      padding: 0.5em;
       transition: 1s;
       transition-property: background-color;
       width: 50%;
